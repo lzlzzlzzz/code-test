@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.code.system.mapper.SystemUserAccountMapper">
+
+    <resultMap type="com.code.system.domain.SystemUserAccount" id="SystemUserAccountResult">
+        <result property="id"    column="id"    />
+        <result property="account"    column="account"    />
+        <result property="password"    column="password"    />
+        <result property="mobile"    column="mobile"    />
+        <result property="deptId"    column="dept_id"    />
+        <result property="nickName"    column="nick_name"    />
+        <result property="email"    column="email"    />
+        <result property="avatar"    column="avatar"    />
+        <result property="sex"    column="sex"    />
+        <result property="status"    column="status"    />
+        <result property="deleteFlag"    column="delete_flag"    />
+        <result property="remark"    column="remark"    />
+        <result property="loginIp"    column="login_ip"    />
+        <result property="loginDate"    column="login_date"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+    </resultMap>
+
+    <sql id="selectSystemUserAccountVo">
+        select id, account, password, mobile, dept_id, nick_name, email, avatar, sex, status, delete_flag, remark, login_ip, login_date, update_by, update_time, create_by, create_time from system_user_account
+    </sql>
+
+    <select id="selectSystemUserAccountList" parameterType="com.code.system.domain.SystemUserAccount" resultMap="SystemUserAccountResult">
+        <include refid="selectSystemUserAccountVo"/>
+        <where>  
+            <if test="account != null  and account != ''"> and account = #{account}</if>
+            <if test="password != null  and password != ''"> and password = #{password}</if>
+            <if test="mobile != null  and mobile != ''"> and mobile = #{mobile}</if>
+            <if test="deptId != null "> and dept_id = #{deptId}</if>
+            <if test="nickName != null  and nickName != ''"> and nick_name like concat('%', #{nickName}, '%')</if>
+            <if test="email != null  and email != ''"> and email = #{email}</if>
+            <if test="avatar != null  and avatar != ''"> and avatar = #{avatar}</if>
+            <if test="sex != null "> and sex = #{sex}</if>
+            <if test="status != null "> and status = #{status}</if>
+            <if test="deleteFlag != null "> and delete_flag = #{deleteFlag}</if>
+            <if test="loginIp != null  and loginIp != ''"> and login_ip = #{loginIp}</if>
+            <if test="loginDate != null "> and login_date = #{loginDate}</if>
+        </where>
+    </select>
+    
+    <select id="selectSystemUserAccountById" parameterType="Long" resultMap="SystemUserAccountResult">
+        <include refid="selectSystemUserAccountVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertSystemUserAccount" parameterType="com.code.system.domain.SystemUserAccount" useGeneratedKeys="true" keyProperty="id">
+        insert into system_user_account
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="account != null and account != ''">account,</if>
+            <if test="password != null and password != ''">password,</if>
+            <if test="mobile != null">mobile,</if>
+            <if test="deptId != null">dept_id,</if>
+            <if test="nickName != null">nick_name,</if>
+            <if test="email != null">email,</if>
+            <if test="avatar != null">avatar,</if>
+            <if test="sex != null">sex,</if>
+            <if test="status != null">status,</if>
+            <if test="deleteFlag != null">delete_flag,</if>
+            <if test="remark != null">remark,</if>
+            <if test="loginIp != null">login_ip,</if>
+            <if test="loginDate != null">login_date,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="createTime != null">create_time,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="account != null and account != ''">#{account},</if>
+            <if test="password != null and password != ''">#{password},</if>
+            <if test="mobile != null">#{mobile},</if>
+            <if test="deptId != null">#{deptId},</if>
+            <if test="nickName != null">#{nickName},</if>
+            <if test="email != null">#{email},</if>
+            <if test="avatar != null">#{avatar},</if>
+            <if test="sex != null">#{sex},</if>
+            <if test="status != null">#{status},</if>
+            <if test="deleteFlag != null">#{deleteFlag},</if>
+            <if test="remark != null">#{remark},</if>
+            <if test="loginIp != null">#{loginIp},</if>
+            <if test="loginDate != null">#{loginDate},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+         </trim>
+    </insert>
+
+    <update id="updateSystemUserAccount" parameterType="com.code.system.domain.SystemUserAccount">
+        update system_user_account
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="account != null and account != ''">account = #{account},</if>
+            <if test="password != null and password != ''">password = #{password},</if>
+            <if test="mobile != null">mobile = #{mobile},</if>
+            <if test="deptId != null">dept_id = #{deptId},</if>
+            <if test="nickName != null">nick_name = #{nickName},</if>
+            <if test="email != null">email = #{email},</if>
+            <if test="avatar != null">avatar = #{avatar},</if>
+            <if test="sex != null">sex = #{sex},</if>
+            <if test="status != null">status = #{status},</if>
+            <if test="deleteFlag != null">delete_flag = #{deleteFlag},</if>
+            <if test="remark != null">remark = #{remark},</if>
+            <if test="loginIp != null">login_ip = #{loginIp},</if>
+            <if test="loginDate != null">login_date = #{loginDate},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteSystemUserAccountById" parameterType="Long">
+        delete from system_user_account where id = #{id}
+    </delete>
+
+    <delete id="deleteSystemUserAccountByIds" parameterType="String">
+        delete from system_user_account where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>
